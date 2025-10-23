@@ -1,0 +1,121 @@
+/* media queries for responsive design */
+
+/* Hero Section */
+#welcome-section {
+  .hero-and-socials {
+    @media (min-width: 768px) {
+      margin-top: 10.25rem; /* 164px */
+    }
+    @media (min-width: 1200px) {
+      margin-top: 5rem; /* 80px */
+    }
+  }
+  .name-and-info {
+    .info {
+      @media (min-width: 768px) {
+        padding-left: 4.25rem; /* 68px */
+      }
+      @media (min-width: 1200px) {
+        padding-left: 6.25rem; /* 100px */
+      }
+    }
+  }
+}
+
+/* Headings and paragraphs with small heading style */
+h2, p {
+  &.sm-heading:not(.bio-text, .info) { 
+    @media (min-width: 768px) {
+      padding-left: 2.1875rem; /* 35px */
+      font-size: calc(1.325rem + .9vw); /* 2.12px + .9% of viewport width */
+    }
+    @media (min-width: 1200px) {
+      padding-left: 2.75rem !important; /* 44px */
+    }
+  }
+}
+
+/* About me Section */
+#about-me {
+  .hero-and-skills { 
+    @media (min-width: 1200px) {
+      min-width: 21.875rem; /* 350px */
+    }
+    @media (min-width: 1400px) {
+      min-width: 26.5625rem; /* 425px */
+    }
+    @media (min-width: 1600px) {
+      min-width: 21.875rem; /* 350px */
+    }
+    @media (min-width: 1920px) {
+      min-width: 30.3125rem; /* 485px */
+    }
+  }
+  .bio-text {
+    @media (min-width: 1200px) {
+      font-size: 1.875rem !important; /* 30px */
+    }
+    @media (min-width: 1600px) {
+      font-size: 2rem !important; /* 32px */
+    }
+  } 
+}
+
+/* The  rest of the sections */
+@media (min-width: 992px) {
+  #about-me, #projects, #contact-me {
+    margin-top: 10rem; /* 160px */
+    margin-bottom: 10rem; /* 160px */
+  }
+}
+
+/* Glow icons with tooltip */
+.glow-icons {
+  .glow-icon {
+    @media (min-width: 768px) {
+      margin: .5rem; /* 8px */
+    }
+    @media (min-width: 1200px) {
+      margin: .3125rem; /* 5px */
+    }
+  }
+  .glow-box-parent {
+    @media (min-width: 768px) {
+      width: 2.8125rem; /* 45px */
+      height: 2.8125rem; /* 45px */
+    }
+    @media (min-width: 1200px) {
+      width: 3.4375rem; /* 55px */
+      height: 3.4375rem; /* 55px */
+    }
+    @media (min-width: 1400px) {
+      width: 3.75rem; /* 60px */
+      height: 3.75rem; /* 60px */
+    }
+    @media (min-width: 1600px) {
+      width: 2.8125rem; /* 45px */
+      height: 2.8125rem; /* 45px */
+    }
+  }
+}
+
+/* Projects Section */
+#projects {
+  .glow-icons {
+    .glow-icon {
+      @media (min-width: 768px) and (max-width: 1199px) {
+        margin: .25rem; /* 4px */
+      }
+    }
+    .glow-box-parent {
+      @media (min-width: 768px) and (max-width: 1199px) {
+        width: 2.375rem; /* 38px */
+        height: 2.375rem; /* 38px */
+      }
+      @media (min-width: 1400px) and (max-width: 1599px) {
+        width: 2.8125rem; /* 45px */
+        height: 2.8125rem; /* 45px */
+      }
+    }
+  }
+}
