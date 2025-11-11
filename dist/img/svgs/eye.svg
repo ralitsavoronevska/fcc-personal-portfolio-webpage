@@ -1,0 +1,16 @@
+<svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <title>Eye icon</title>
+  <style>.st3{fill:#fff}</style>
+  <g id="Layer_1">
+    <circle fill="#7b7beb" cx="32" cy="32" r="32"/>
+    <g style="opacity:.2">
+      <circle cx="32" cy="34" r="20" style="fill:#231f20"/>
+    </g>
+    <circle class="st3" cx="32" cy="32" r="20"/>
+    <circle cx="32" cy="32" r="12" style="fill:#77b3d4"/>
+    <circle cx="32" cy="32" r="4" style="fill:#4f5d73"/>
+    <circle class="st3" cx="34" cy="30" r="2"/>
+    <circle class="st3" cx="40" cy="24" r="4"/>
+  </g>
+  <g id="Layer_2"/>
+</svg>
