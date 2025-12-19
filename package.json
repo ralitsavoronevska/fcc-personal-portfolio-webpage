@@ -1,0 +1,26 @@
+{
+  "name": "fcc-personal-portfolio-webpage",
+  "version": "1.0.0",
+  "description": "FCC: Build a Personal Portfolio Webpage",
+  "homepage": "http://ralitsavoronevska.github.io/fcc-personal-portfolio-webpage/",
+  "scripts": {
+    "scss": "sass --watch --style=compressed --no-source-map scss/:dist/css/",
+    "deploy": "gh-pages -d dist"
+  },
+  "keywords": [
+    "HTML5",
+    "CSS3",
+    "SCSS",
+    "Responsiveness",
+    "Transitions",
+    "Animations",
+    "Flex Layout",
+    "Vanilla JS"
+  ],
+  "author": "Ralitsa Voronevska",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "sass": "^1.93.0"
+  }
+}

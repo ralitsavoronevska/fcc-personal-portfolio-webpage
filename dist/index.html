@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCC: Build a Personal Portfolio Webpage</title>
+    <meta name="theme-color" content="#7b7beb">
+    <meta name="description" content="FCC: Build a Personal Portfolio Webpage">
+    <link rel="canonical" href="https://ralitsavoronevska.github.io/fcc-personal-portfolio-webpage/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ralitsavoronevska.github.io/fcc-personal-portfolio-webpage/">
+    <meta property="og:title" content="FCC: Build a Personal Portfolio Webpage">
+    <meta property="og:description" content="FCC: Build a Personal Portfolio Webpage">
+    <meta property="og:image" content="https://ralitsavoronevska.github.io/fcc-personal-portfolio-webpage/dist/img/fcc-personal-portfolio-webpage-desktop-preview.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ralitsavoronevska.github.io/fcc-personal-portfolio-webpage/">
+    <meta name="twitter:title" content="FCC: Build a Personal Portfolio Webpage">
+    <meta name="twitter:description" content="FCC: Build a Personal Portfolio Webpage">
+    <meta name="twitter:image" content="https://ralitsavoronevska.github.io/fcc-personal-portfolio-webpage/dist/img/fcc-personal-portfolio-webpage-desktop-preview.png">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="img/favicons/android-chrome.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" sizes="48x48" href="img/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicons/favicon-16x16.png">
+
+    <!-- Preload Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Preload logo, hero, full-background and above the fold images -->
+    <link rel="preload" href="img/logo.png" as="image" type="image/png" fetchpriority="high">
+    <link rel="preload" href="img/hero.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="img/full-background.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="img/svgs/linkedin.svg" as="image" type="image/svg+xml">
+    <link rel="preload" href="img/svgs/github.svg" as="image" type="image/svg+xml">
+    <link rel="preload" href="img/svgs/codepen.svg" as="image" type="image/svg+xml">
+
+    <!-- Main stylesheets: Bootstrap and my own styles -->
+    <link rel="stylesheet" href="purged-bootstrap.min.css" fetchpriority="high">
+    <link rel="stylesheet" href="css/styles-small.css">
+    <link rel="stylesheet" href="css/styles-large.css" media="(min-width: 768px)">
+
+    <!-- Inline critical CSS for hero image and LCP -->
+    <style>
+      body {
+        color: #fff;
+        font-size: 1rem;
+        min-height: 100vh;
+        line-height: 1.5;
+        font-family: "Playfair Display", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      /* Fixed background and overlay */
+      .background-container, .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+      }
+      .background-container {
+        z-index: -2; /* Behind everything */
+        background: url('img/full-background.webp') no-repeat center center/cover fixed;
+        will-change: transform;
+      }
+      .overlay {
+        z-index: -1; /* Above background, below content */
+        background: rgba(26, 26, 26, .85);
+      }
+      .content-wrapper {
+        z-index: 1; /* Above overlay */
+        min-height: 100vh;
+      }
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .background-container, .overlay {
+          background-attachment: scroll; /* Fallback for mobile jitter */
+        }
+      }
+      /* Common styles */
+      .center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .gradient-text {
+        background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(to right, #f864bd, #7b7beb);
+      }
+      /* Hero section */
+      .hero-section {
+        width: 100%;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+      .name-and-info {
+        margin-top: 2rem; /* 32px */
+      }
+      .name-and-info .info {
+        padding-left: 1rem; /* 16px */
+      }
+      .social-icons {
+        gap: 2.25rem;
+      }
+      /* Hero image */
+      .hero-img-container {
+        padding: 0.125rem; /* 2px */
+        background: linear-gradient(to right, #f864bd, #7b7beb) border-box;
+        border-radius: 50%;
+        box-sizing: border-box;
+      }
+      .hero-img {
+        border: 0.125rem solid transparent; /* 2px */
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    </style>  
+
+    <!-- noscript fallbacks -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap">
+    </noscript>
+  </head>
+    
+  <body class="fw-normal fst-normal">
+
+    <!-- Fixed background and overlay -->
+    <div class="background-container"></div>
+    <div class="overlay"></div>
+
+    <!-- start of content -->
+    <div class="content-wrapper position-relative">
+
+      <!-- scroll to top button -->
+      <div class="scrollToTop center position-fixed rounded-circle">
+        <img src="img/svgs/home-btn.svg" width="40" height="40" id="home-btn" alt="Scroll to top button" loading="lazy">
+      </div>
+    
+      <!-- start of header -->
+      <header class="w-100 position-fixed top-0 d-flex justify-content-between">
+        
+        <!-- logo -->
+        <a href="#" class="nav-link nav-logo" aria-label="Home page">
+          <div class="logo"></div>
+        </a>
+        
+        <!-- start of navigation -->
+        <nav id="navbar" class="d-flex"> 
+          <ul class="menu-nav center flex-row gap-3 gap-md-5 list-unstyled mb-0 me-3">
+            <li class="nav-item">
+              <a href="#about" class="nav-link d-flex" aria-label="About me section">About</a>
+            </li>
+            <li class="nav-item">
+              <a href="#projects" class="nav-link d-flex" aria-label="My projects section">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a href="#contact" class="nav-link d-flex" aria-label="Contact me section">Contact</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- end of navigation -->
+      </header>
+      <!-- end of header -->
+      
+      <!-- start of main -->
+      <main>
+
+        <!-- start of hero section -->
+        <section id="welcome-section" class="hero-section center">
+          
+          <!-- start of hero-and-socials -->
+          <div class="hero-and-socials d-flex flex-column">
+
+            <!-- start of hero-img-container -->
+            <div class="hero-img-container center mx-auto">
+              <img src="img/hero.webp" width="200" height="200" class="hero-img center" alt="Ralitsa Voronevska" loading="eager">
+            </div>  
+            <!-- end of hero-img-container -->
+
+            <!-- start of name-and-info -->
+            <div class="name-and-info d-flex flex-column">
+              <h1 class="display-1 fw-bold text-left">Ralitsa <span class="gradient-text fw-bold">Voronevska</span></h1>
+              <h2 class="sm-heading info fw-bold text-left mb-4">The <span class="typed-text gradient-text"></span></h2>
+            </div>
+            <!-- end of name-and-info -->
+
+            <!-- start of social-icons -->
+            <div class="social-icons center mt-4 mb-md-5 mb-lg-5">
+
+              <!-- start of linkedin profile link -->
+              <a href="https://www.linkedin.com/in/ralitsavoronevska/" target="_blank" rel="noopener" aria-label="Visit my LinkedIn Profile">
+                <img src="img/svgs/linkedin.svg" width="50" height="50" alt="LinkedIn icon" loading="eager">
+              </a>  
+              <!-- end of linkedin profile link -->
+
+              <!-- start of github profile link -->
+              <a id="profile-link" href="https://github.com/ralitsavoronevska/" target="_blank" rel="noopener" aria-label="Visit my GitHub Profile">
+                <img src="img/svgs/github.svg" width="50" height="50" alt="GitHub icon" loading="eager">
+              </a>
+              <!-- end of github profile link -->
+
+              <!-- start of codepen profile link -->
+              <a href="https://codepen.io/ralitsavoronevska/" target="_blank" rel="noopener" aria-label="Visit my CodePen Profile">
+                <img src="img/svgs/codepen.svg" width="50" height="50" alt="CodePen icon" loading="eager">
+              </a>
+              <!-- end of codepen profile link -->
+
+            </div>
+            <!-- end of social-icons -->
+
+          </div>  
+          <!-- end of hero-and-socials -->
+          
+        </section>  
+        <!-- end of hero section -->
+        
+        <!-- start of about section -->
+        <section id="about" class="about-me d-flex flex-column text-center position-relative mx-3">
+
+          <h2 class="display-2 mb-2">About <span class="gradient-text">Me</span></h2>
+          <h3 class="sm-heading mt-2 mb-4">Hi, I'm <span class="gradient-text">Ralitsa Voronevska</span>!</h3>
+
+          <!-- start of hero-skills-and-bio -->
+          <div class="hero-skills-and-bio d-flex flex-column flex-lg-row">
+
+            <!-- start of hero-and-skills -->
+            <div class="hero-and-skills important-el rounded-4 p-3 d-flex flex-column">
+
+              <!-- start of hero-img-container -->
+              <div class="hero-img-container position-relative rounded-circle mx-auto mb-2">
+                <img src="img/hero.webp" width="200" height="200" class="hero-img rounded-circle" alt="Ralitsa Voronevska" loading="lazy">
+              </div> 
+              <!-- end of hero-img-container -->
+
+              <!-- start of glow-icons -->
+              <div class="glow-icons mt-3 mx-auto">
+
+                <!--start of HTML5 Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative">
+                    <img src="img/svgs/html5.svg" width="32" height="32" alt="HTML5 Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">HTML5</span>
+                  </div>
+                </div>
+                <!-- end of HTML5 Logo -->
+
+                <!-- start of CSS3 Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative">
+                    <img src="img/svgs/css3.svg" width="32" height="32" alt="CSS3 Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">CSS3</span>
+                  </div>
+                </div>
+                <!-- end of CSS3 Logo -->
+
+                <!-- start of Bootstrap Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative">  
+                    <img src="img/svgs/bootstrap.svg" width="32" height="32" alt="Bootstrap Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">Bootstrap</span>
+                  </div>
+                </div>
+                <!-- end of Bootstrap Logo -->
+
+                <!-- start of SASS Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative"> 
+                    <img src="img/svgs/sass.svg" width="32" height="32" alt="SASS Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">SASS</span>
+                  </div>
+                </div>
+                <!-- end of SASS Logo -->
+
+                <!-- start of TailWindCSS Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative"> 
+                    <img src="img/svgs/tailwind-css.svg" width="32" height="32" alt="TailWindCSS Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">TailWindCSS</span>
+                  </div>
+                </div>
+                <!-- end of TailWindCSS Logo -->
+
+                <!-- start of JavaScript Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative">    
+                    <img src="img/svgs/javascript.svg" width="32" height="32" alt="JavaScript Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">JavaScript</span>
+                  </div>
+                </div>
+                <!-- end of JavaScript Logo -->
+
+                <!-- start of jQuery Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative">      
+                    <img src="img/svgs/jquery.svg" width="32" height="32" alt="jQuery Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">jQuery</span>
+                  </div>
+                </div>  
+                <!-- end of jQuery Logo -->
+                
+                <!-- start of Git Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative">     
+                    <img src="img/svgs/git.svg" width="32" height="32" alt="Git Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">Git</span>
+                  </div>
+                </div>    
+                <!-- end of Git Logo -->
+
+                <!-- start of Gulp Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative"> 
+                    <img src="img/svgs/gulp.svg" width="32" height="32" alt="Gulp Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">Gulp</span>
+                  </div>
+                </div>    
+                <!-- end of Gulp Logo -->
+
+                <!-- start of Vue.js Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative"> 
+                    <img src="img/svgs/vue-js.svg" width="32" height="32" alt="Vue.js Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">Vue.js</span>
+                  </div>
+                </div>    
+                <!-- end of Vue.js Logo -->
+
+                <!-- start of TypeScript Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative"> 
+                    <img src="img/svgs/typescript.svg" width="32" height="32" alt="TypeScript Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">TypeScript</span>
+                  </div>
+                </div>    
+                <!-- end of TypeScript Logo -->
+
+                <!-- start of Pinia Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative"> 
+                    <img src="img/svgs/pinia.svg" width="32" height="32" alt="Pinia Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">Pinia</span>
+                  </div>
+                </div>
+                <!-- end of Pinia Logo -->
+
+                <!-- start of Vite.js Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative"> 
+                    <img src="img/svgs/vite-js.svg" width="32" height="32" alt="Vite.js Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">Vite.js</span>
+                  </div>
+                </div>
+                <!-- end of Vite.js Logo -->
+
+                <!-- start of Vitest Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative">
+                    <img src="img/svgs/vitest.svg" width="32" height="32" alt="Vitest Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">Vitest</span>
+                  </div>
+                </div>
+                <!-- end of Vitest Logo -->
+
+                <!-- start of PostMan Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative">     
+                    <img src="img/svgs/postman.svg" width="32" height="32" alt="PostMan Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">PostMan</span>
+                  </div>
+                </div>  
+                <!-- end of PostMan Logo -->
+                
+                <!-- start of Firebase Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative"> 
+                    <img src="img/svgs/firebase.svg" width="32" height="32" alt="FireBase Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">FireBase</span>
+                  </div>
+                </div>    
+                <!-- end of Firebase Logo -->
+
+                <!-- start of Netlify Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative">
+                    <img src="img/svgs/netlify.svg" width="32" height="32" alt="Netlify Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">Netlify</span>
+                  </div>
+                </div>      
+                <!-- end of Netlify Logo -->
+
+                <!-- start of PhotoShop Logo -->
+                <div class="glow-icon d-inline-block">
+                  <div class="glow-box-parent rounded-3 center position-relative">     
+                    <img src="img/svgs/photoshop.svg" width="32" height="32" alt="PhotoShop Logo" loading="lazy">
+                    <span class="tooltip rounded-2 position-absolute">PhotoShop</span>
+                  </div>
+                </div>    
+                <!-- end of PhotoShop Logo -->
+
+              </div>
+              <!-- end of glow-icons -->
+
+            </div>
+            <!-- end of hero-and-skills -->
+
+            <!-- start of bio -->
+            <div class="bio important-el rounded-4 p-3 d-flex flex-column mt-4 mt-lg-0 ms-lg-4">
+              <p class="bio-text sm-heading text-center ps-0 px-xxl-3 mb-0 my-lg-auto">A <span class="gradient-text">creative, passionate and proactive "can-do"</span> Front-end Developer with <span class="gradient-text">5 ½ years</span> of experience in building <span class="gradient-text">high-performance, scalable and responsive web solutions</span>, following all the best practices in terms of <span class="gradient-text">UI/UX</span>, <span class="gradient-text">accessibility</span>, <span class="gradient-text">SEO</span> and <span class="gradient-text">SOLID principles</span>. I am focused on crafting solutions tailored to both <span class="gradient-text">user needs and business objectives</span>. I stand out with <span class="gradient-text">strong attention to detail</span>, <span class="gradient-text">excellent communication</span> and <span class="gradient-text">negotiation skills</span>, as well as my <span class="gradient-text">ability to work well individually and/or as a part of a team</span>. I have experience in <span class="gradient-text">dynamic environments</span> and I am <span class="gradient-text">enthusiastic regarding overcoming challenges and reaching targets</span>.</p>
+            </div>
+            <!-- end of bio -->
+          
+          </div>
+          <!-- end of hero-skills-and-bio -->  
+            
+        </section>
+        <!-- end of about me section -->
+
+        <!-- start of projects section -->
+        <section id="projects" class="projects-section d-flex flex-column text-center position-relative mx-3">
+
+          <h2 class="display-2 mb-2">My <span class="gradient-text">Projects</span></h2>
+          <h3 class="sm-heading mt-2 mb-4">My <span class="gradient-text">FCC</span> Responsive Web Design Certification Projects</h3>
+          
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4 g-4">
+
+            <!-- start of Survey Form Project -->
+            <div class="col">
+              <div class="card important-el h-100 rounded-4 p-3 project-tile">
+                <img src="img/projects/fcc-survey-form.webp" width="346" height="322" class="card-img-top w-100" alt="Netflix Survey Form Clone" loading="lazy">
+                <div class="card-body pb-0">
+                  <h4 class="card-title gradient-text fw-bold">Survey Form</h4>
+
+                  <!-- start of card-text -->
+                  <div class="card-text">
+
+                    <p class="fw-bold">Netflix Survey Form Clone</p>
+
+                    <!-- start of glow-icons -->
+                    <div class="glow-icons center gap-3 p-3">
+
+                      <!-- start of HTML5 Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">
+                          <img src="img/svgs/html5.svg" width="32" height="32" alt="HTML5 Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">HTML5</span>
+                        </div>
+                      </div>
+                      <!-- end of HTML5 Logo -->
+
+                      <!-- start of CSS3 Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">
+                          <img src="img/svgs/css3.svg" width="32" height="32" alt="CSS3 Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">CSS3</span>
+                        </div>
+                      </div>
+                      <!-- end of CSS3 Logo -->
+
+                      <!-- start of SASS Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative"> 
+                          <img src="img/svgs/sass.svg" width="32" height="32" alt="SASS Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">SASS</span>
+                        </div>
+                      </div>
+                      <!-- end of SASS Logo -->
+
+                    </div>
+                    <!-- end of glow-icons -->  
+
+                    <!-- start of Survey Form Project links -->
+                    <div class="dev-icons center gap-5 p-3">
+                    
+                      <!-- start of github project link -->
+                      <a href="https://github.com/ralitsavoronevska/fcc-survey-form/" target="_blank" rel="noopener" aria-label="View my Survey Form Project in GitHub">
+                        <img src="img/svgs/github.svg" width="45" height="45" alt="GitHub icon" loading="lazy">
+                      </a>
+                      <!-- end of github project link -->
+
+                      <!-- start of codepen project link -->
+                      <a href="https://codepen.io/ralitsavoronevska/pen/ZgbxGq/" target="_blank" rel="noopener" aria-label="View my Survey Form Project in CodePen">
+                        <img src="img/svgs/codepen.svg" width="45" height="45" alt="CodePen icon" loading="lazy">
+                      </a>
+                      <!-- end of codepen project link -->
+
+                      <!-- start of live preview project link -->
+                      <a href="https://ralitsavoronevska.github.io/fcc-survey-form/" target="_blank" rel="noopener" aria-label="View my Survey Form Project's Live Preview">
+                        <img src="img/svgs/eye.svg" width="40" height="40" alt="Eye icon" loading="lazy">
+                      </a>
+                      <!-- end of live preview project link -->
+
+                    </div>   
+                    <!-- end of Survey Form Project links -->
+
+                  </div>
+                  <!-- end of card-text -->
+
+                </div>
+              </div>
+            </div>
+            <!-- end of Survey Form Project -->
+
+            <!-- start of Tribute Page Project -->
+            <div class="col">
+              <div class="card h-100 important-el rounded-4 p-3 project-tile">
+                <img src="img/projects/fcc-tribute-page.webp" width="346" height="322" class="card-img-top w-100" alt="Tribute Page for Brendan Eich" loading="lazy">
+                <div class="card-body pb-0">
+                  <h4 class="card-title gradient-text fw-bold">Tribute Page</h4>
+
+                  <!-- start of card-text -->
+                  <div class="card-text">
+
+                    <p class="fw-bold">Tribute Page for Brendan Eich</p>
+
+                    <!-- start of glow-icons -->
+                    <div class="glow-icons center gap-2 p-3">
+
+                      <!-- start of HTML5 Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">
+                          <img src="img/svgs/html5.svg" width="32" height="32" alt="HTML5 Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">HTML5</span>
+                        </div>
+                      </div>
+                      <!-- end of HTML5 Logo -->
+
+                      <!-- start of CSS3 Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">
+                          <img src="img/svgs/css3.svg" width="32" height="32" alt="CSS3 Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">CSS3</span>
+                        </div>
+                      </div>
+                      <!-- end of CSS3 Logo -->
+
+                      <!-- start of SASS Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative"> 
+                          <img src="img/svgs/sass.svg" width="32" height="32" alt="SASS Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">SASS</span>
+                        </div>
+                      </div>
+                      <!-- end of SASS Logo -->
+
+                      <!-- start of JavaScript Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">    
+                          <img src="img/svgs/javascript.svg" width="32" height="32" alt="JavaScript Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">JavaScript</span>
+                        </div>
+                      </div>
+                      <!-- end of JavaScript Logo -->
+
+                      <!-- start of Bootstrap Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">  
+                          <img src="img/svgs/bootstrap.svg" width="32" height="32" alt="Bootstrap Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">Bootstrap</span>
+                        </div>
+                      </div>
+                      <!-- end of Bootstrap Logo -->
+
+                    </div>
+                    <!-- end of glow-icons -->
+
+                    <!-- start of Tribute Page Project links -->
+                    <div class="dev-icons center gap-5 p-3">
+                    
+                      <!-- start of github project link -->
+                      <a href="https://github.com/ralitsavoronevska/fcc-tribute-page/" target="_blank" rel="noopener" aria-label="View my Tribute Page Project in GitHub">
+                        <img src="img/svgs/github.svg" width="45" height="45" alt="GitHub icon" loading="lazy">
+                      </a>
+                      <!-- end of github project link -->
+
+                      <!-- start of codepen project link -->
+                      <a href="https://codepen.io/ralitsavoronevska/pen/zVOaXb/" target="_blank" rel="noopener" aria-label="View my Tribute Page Project in CodePen">
+                        <img src="img/svgs/codepen.svg" width="45" height="45" alt="CodePen icon" loading="lazy">
+                      </a>
+                      <!-- end of codepen project link -->
+
+                      <!-- start of live preview project link -->
+                      <a href="https://ralitsavoronevska.github.io/fcc-tribute-page/" target="_blank" rel="noopener" aria-label="View my Tribute Page Project's Live Preview">
+                        <img src="img/svgs/eye.svg" width="40" height="40" alt="Eye icon" loading="lazy">
+                      </a>
+                      <!-- end of live preview project link -->
+
+                    </div>   
+                    <!-- end of Tribute Page Project links -->
+
+                  </div>
+                  <!-- end of card-text -->
+
+                </div>
+              </div>
+            </div>
+            <!-- end of Tribute Page Project -->
+
+            <!-- start of Techical Documentation Page Project -->
+            <div class="col">
+              <div class="card h-100 important-el rounded-4 p-3 project-tile">
+                <img src="img/projects/fcc-technical-documentation-page.webp" width="346" height="322" class="card-img-top w-100" alt="JavaScript Technical Documentation Page" loading="lazy">
+                <div class="card-body pb-0">
+                  <h4 class="card-title gradient-text fw-bold">Tech Doc Page</h4>
+
+                  <!-- start of card-text -->
+                  <div class="card-text">
+
+                    <p class="fw-bold">JS Tech Doc Page</p>
+
+                    <!-- start of glow-icons -->
+                    <div class="glow-icons center gap-2 p-3">
+
+                      <!-- start of HTML5 Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">
+                          <img src="img/svgs/html5.svg" width="32" height="32" alt="HTML5 Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">HTML5</span>
+                        </div>
+                      </div>
+                      <!-- end of HTML5 Logo -->
+
+                      <!-- start of CSS3 Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">
+                          <img src="img/svgs/css3.svg" width="32" height="32" alt="CSS3 Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">CSS3</span>
+                        </div>
+                      </div>
+                      <!-- end of CSS3 Logo -->
+
+                      <!-- start of SASS Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative"> 
+                          <img src="img/svgs/sass.svg" width="32" height="32" alt="SASS Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">SASS</span>
+                        </div>
+                      </div>
+                      <!-- end of SASS Logo -->
+
+                      <!-- start of JavaScript Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">    
+                          <img src="img/svgs/javascript.svg" width="32" height="32" alt="JavaScript Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">JavaScript</span>
+                        </div>
+                      </div>
+                      <!-- end of JavaScript Logo -->
+
+                      <!-- start of Bootstrap Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">  
+                          <img src="img/svgs/bootstrap.svg" width="32" height="32" alt="Bootstrap Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">Bootstrap</span>
+                        </div>
+                      </div>
+                      <!-- end of Bootstrap Logo -->
+                      
+                    </div>
+                    <!-- end of glow-icons -->
+
+                    <!-- start of Techical Documentation Page Project links -->
+                    <div class="dev-icons center gap-5 p-3">
+                    
+                      <!-- start of github project link -->
+                      <a href="https://github.com/ralitsavoronevska/fcc-technical-documentation-page/" target="_blank" rel="noopener" aria-label="View my Tech Doc Page Project in GitHub">
+                        <img src="img/svgs/github.svg" width="45" height="45" alt="GitHub icon" loading="lazy">
+                      </a>
+                      <!-- end of github project link -->
+
+                      <!-- start of codepen project link -->
+                      <a href="https://codepen.io/ralitsavoronevska/pen/zgvWKQ/" target="_blank" rel="noopener" aria-label="View my Tech Doc Page Project in CodePen">
+                        <img src="img/svgs/codepen.svg" width="45" height="45" alt="CodePen icon" loading="lazy">
+                      </a>
+                      <!-- end of codepen project link -->
+
+                      <!-- start of live preview project link -->
+                      <a href="https://ralitsavoronevska.github.io/fcc-technical-documentation-page/" target="_blank" rel="noopener" aria-label="View my Tech Doc Page Project's Live Preview">
+                        <img src="img/svgs/eye.svg" width="40" height="40" alt="Eye icon" loading="lazy">
+                      </a>
+                      <!-- end of live preview project link -->
+
+                    </div>   
+                    <!-- end of Techical Documentation Page Project links -->
+
+                  </div>
+                  <!-- end of card-text -->
+
+                </div>
+              </div>
+            </div>
+            <!-- end of Techical Documentation Page Project -->
+
+            <!-- start of Product Landing Page Project -->
+            <div class="col">
+              <div class="card h-100 important-el rounded-4 p-3 project-tile">
+                <img src="img/projects/fcc-product-landing-page.webp" width="346" height="322" class="card-img-top w-100" alt="Vue.js Product Landing Page Clone" loading="lazy">
+                <div class="card-body pb-0">
+                  <h4 class="card-title gradient-text fw-bold">Product Page</h4>
+
+                  <!-- start of card-text -->
+                  <div class="card-text">
+
+                    <p class="fw-bold">Vue Product Landing Page Clone</p>
+
+                    <!-- start of glow-icons -->
+                    <div class="glow-icons center gap-2 p-3">
+
+                      <!-- start of HTML5 Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">
+                          <img src="img/svgs/html5.svg" width="32" height="32" alt="HTML5 Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">HTML5</span>
+                        </div>
+                      </div>
+                      <!-- end of HTML5 Logo -->
+
+                      <!-- start of CSS3 Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">
+                          <img src="img/svgs/css3.svg" width="32" height="32" alt="CSS3 Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">CSS3</span>
+                        </div>
+                      </div>
+                      <!-- end of CSS3 Logo -->
+
+                      <!-- start of SASS Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative"> 
+                          <img src="img/svgs/sass.svg" width="32" height="32" alt="SASS Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">SASS</span>
+                        </div>
+                      </div>
+                      <!-- end of SASS Logo -->
+
+                      <!-- start of JavaScript Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">    
+                          <img src="img/svgs/javascript.svg" width="32" height="32" alt="JavaScript Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">JavaScript</span>
+                        </div>
+                      </div>
+                      <!-- end of JavaScript Logo -->
+
+                      <!-- start of Bootstrap Logo -->
+                      <div class="glow-icon d-inline-block">
+                        <div class="glow-box-parent rounded-3 center position-relative">  
+                          <img src="img/svgs/bootstrap.svg" width="32" height="32" alt="Bootstrap Logo" loading="lazy">
+                          <span class="tooltip rounded-2 position-absolute">Bootstrap</span>
+                        </div>
+                      </div>
+                      <!-- end of Bootstrap Logo -->
+                      
+                    </div>
+                    <!-- end of glow-icons -->
+
+                    <!-- start of Product Landing Page Project links -->
+                    <div class="dev-icons center gap-5 p-3">
+                    
+                      <!-- start of github project link -->
+                      <a href="https://github.com/ralitsavoronevska/fcc-product-landing-page/" target="_blank" rel="noopener" aria-label="View my Product Landing Page Project in GitHub">
+                        <img src="img/svgs/github.svg" width="45" height="45" alt="GitHub icon" loading="lazy">
+                      </a>
+                      <!-- end of github project link -->
+
+                      <!-- start of codepen project link -->
+                      <a href="https://codepen.io/ralitsavoronevska/pen/GgJKYWp/" target="_blank" rel="noopener" aria-label="View my Product Landing Page Project in CodePen">
+                        <img src="img/svgs/codepen.svg" width="45" height="45" alt="CodePen icon" loading="lazy">
+                      </a>
+                      <!-- end of codepen project link -->
+
+                      <!-- start of live preview project link -->
+                      <a href="https://ralitsavoronevska.github.io/fcc-product-landing-page/" target="_blank" rel="noopener" aria-label="View my Product Landing Page's Live Preview">
+                        <img src="img/svgs/eye.svg" width="40" height="40" alt="Eye icon" loading="lazy">
+                      </a>
+                      <!-- end of live preview project link -->
+
+                    </div>   
+                    <!-- end of Product Landing Page Project links -->
+
+                  </div>
+                  <!-- end of card-text -->
+
+                </div>
+              </div>
+            </div>
+            <!-- end of Product Landing Page Project -->
+
+          </div>
+        </section>
+        <!-- end of projects section -->
+
+        <!-- start of contact section -->
+        <section id="contact" class="contact-section d-flex flex-column text-center position-relative mx-3">
+            
+          <h2 class="display-2 mb-2">Contact <span class="gradient-text">Me</span></h2>
+          <p class="sm-heading mt-2 mb-4">
+            I'd love if you reach out to me. Even if it's to say: <span class="gradient-text">"Hey!"</span>
+            <br>
+            Don't hesitate! Drop me a line and I’ll reply to you <span class="gradient-text">ASAP</span>!
+          </p>
+
+          <p class="sm-heading center mb-0">
+            <img src="img/svgs/map-marker.svg" width="30" height="30" alt="Map Marker icon" loading="lazy">
+            <span class="gradient-text ms-2">Varna, Bulgaria</span>
+          </p>
+
+          <!-- start of social-icons -->
+            <div class="social-links center flex-wrap gap-5 mt-5">
+
+              <!-- start of linkedin profile link -->
+              <a href="https://www.linkedin.com/in/ralitsavoronevska/" target="_blank" rel="noopener" aria-label="Visit my LinkedIn Profile">
+                <img src="img/svgs/linkedin.svg" width="64" height="64" alt="LinkedIn icon" loading="lazy">
+              </a>
+              <!-- end of linkedin profile link -->
+
+              <!-- start of github profile link -->
+              <a href="https://github.com/ralitsavoronevska/" target="_blank" rel="noopener" aria-label="Visit my GitHub Profile">
+                <img src="img/svgs/github.svg" width="64" height="64" alt="GitHub icon" loading="lazy">
+              </a>
+              <!-- end of github profile link -->
+
+              <!-- start of codepen profile link -->
+              <a href="https://codepen.io/ralitsavoronevska/" target="_blank" rel="noopener" aria-label="Visit my CodePen Profile">
+                <img src="img/svgs/codepen.svg" width="64" height="64" alt="CodePen icon" loading="lazy">
+              </a>
+              <!-- end of codepen profile link -->
+
+              <!-- start of discord link -->
+              <a href="discordapp.com/users/1425751105060732959" target="_blank" rel="noopener" aria-label="Message me on Discord">
+                <img src="img/svgs/discord.svg" width="64" height="64" alt="Discord icon" loading="lazy">
+              </a>
+              <!-- end of discord link -->
+
+              <!-- start of telegram link -->
+              <a href="https//t.me/ralitsavoronevska/" target="_blank" rel="noopener" aria-label="Message me on Telegram">
+                <img src="img/svgs/telegram.svg" width="64" height="64" alt="Telegram icon" loading="lazy">
+              </a>  
+              <!-- end of telegram link -->
+
+              <!-- start of email link -->
+              <a href="mailto:r.voronevska@gmail.com" target="_blank" rel="noopener" aria-label="Send me an Email">
+                <img src="img/svgs/email.svg" width="64" height="64" alt="Email icon" loading="lazy">
+              </a>
+              <!-- end of email link -->
+
+            </div>
+            <!-- end of social-icons -->
+
+        </section>
+        <!-- end of contact me section -->
+
+      </main>
+      <!-- end of main -->
+
+      <footer id="footer" class="important-el center fw-bold p-3">
+        <p class="lead fw-bold m-0 gradient-text"><a href="https://ralitsavoronevska.com/" class="fw-bold text-decoration-none gradient-text" target="_blank" rel="noopener">&#60;Ralitsa Voronevska&#47;&#62;</a> <span class="fw-bold">&copy; 2025</span></p>
+      </footer>     
+
+    </div>
+    <!-- end of content-wrapper -->  
+
+    <script src="js/typewriter-min.js" defer></script>
+    <script src="js/btn-script-min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/mailgo@0.11.2/dist/mailgo.min.js" defer></script>
+
+  </body>    
+</html>

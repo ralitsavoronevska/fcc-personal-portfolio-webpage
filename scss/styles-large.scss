@@ -1,0 +1,107 @@
+/* media queries for responsive design */
+
+/* Hero Section */
+#welcome-section {
+  .hero-and-socials {
+    @media (min-width: 768px) {
+      margin-top: 10.25rem; /* 164px */
+    }
+    @media (min-width: 1200px) {
+      margin-top: 5rem; /* 80px */
+    }
+  }
+  .name-and-info {
+    .info {
+      @media (min-width: 768px) {
+        padding-left: 4.25rem; /* 68px */
+      }
+      @media (min-width: 1200px) {
+        padding-left: 6.25rem; /* 100px */
+      }
+    }
+  }
+}
+
+/* Headings and paragraphs with small heading style */
+h2, p {
+  &.sm-heading:not(.bio-text, .info) { 
+    @media (min-width: 768px) {
+      padding-left: 2.1875rem; /* 35px */
+      font-size: calc(1.325rem + .9vw); /* 2.12px + .9% of viewport width */
+    }
+    @media (min-width: 1200px) {
+      padding-left: 2.75rem !important; /* 44px */
+    }
+  }
+}
+
+/* About me Section */
+#about {
+  .hero-and-skills { 
+    @media (min-width: 992px) {
+      min-width: 15rem; /* 240px */
+    }
+    @media (min-width: 1200px) {
+      min-width: 17rem; /* 272px */
+    }
+    @media (min-width: 1400px) {
+      min-width: 26.5625rem; /* 425px */
+    }
+  }
+  .bio-text {
+    @media (min-width: 992px) {
+      font-size: 1.75rem !important; /* 28px */
+    }
+    @media (min-width: 1200px) {
+      font-size: 1.875rem !important; /* 30px */
+    }
+    @media (min-width: 1400px) {
+      font-size: 1.65rem !important; /* 26.4px */
+    }
+    @media (min-width: 1600px) {
+      font-size: 1.8rem !important; /* 28.8px */
+    }
+  } 
+}
+
+/* Glow icons with tooltip */
+.glow-icons {
+  .glow-icon {
+    @media (min-width: 768px) {
+      margin: .25rem; /* 4px */
+    }
+    @media (min-width: 1200px) {
+      margin: .3125rem; /* 5px */
+    }
+    @media (min-width: 1600px) {
+      margin: .25rem; /* 4px */
+    }
+  }
+  .glow-box-parent {
+    @media (min-width: 768px) {
+      width: 3rem; /* 48px */
+      height: 3rem; /* 48px */
+    }
+  }
+}
+
+/* Projects Section */
+#projects {
+  .glow-icons {
+    .glow-icon {
+      @media (min-width: 768px) and (max-width: 1199px) {
+        margin: .25rem; /* 4px */
+      }
+    }
+    .glow-box-parent {
+      @media (min-width: 768px) and (max-width: 1199px) {
+        width: 2.375rem; /* 38px */
+        height: 2.375rem; /* 38px */
+      }
+      @media (min-width: 1400px) and (max-width: 1599px) {
+        width: 2.8125rem; /* 45px */
+        height: 2.8125rem; /* 45px */
+      }
+    }
+  }
+}

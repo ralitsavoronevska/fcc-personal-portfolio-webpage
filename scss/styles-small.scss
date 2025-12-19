@@ -1,0 +1,224 @@
+/* global classes styling and variables definitions */
+:root {
+  --pink: #f864bd;
+  --purple: #7b7beb;
+  --deep-purple: rgba(30, 22, 33, .85);
+  --dark-overlay: rgba(26, 26, 26, .5);
+  --text-color: white;
+  --transition: .3s;
+}
+
+* { 
+  margin: 0; 
+  padding: 0; 
+}
+
+*, *::before, *::after { 
+  box-sizing: border-box; 
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 5.3125rem; /* 85px */
+}
+
+/* .scrollToTop button styling */
+.scrollToTop {
+  width: 4rem; /* 64px */
+  height: 4rem; /* 64px */
+  cursor: pointer;
+  bottom: 50rem; /* 800px */
+  right: 1.25rem; /* 20px */
+  z-index: 100000;
+  background-color: var(--purple);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(30%);
+  transition: .5s;
+  box-shadow: 0 .625rem 3.125rem .625rem rgba(255, 255, 255, .35); /* 0 16px 50px 16px */
+  &.active { 
+    visibility: visible; 
+    opacity: 1; 
+    bottom: 10%; 
+  }
+  &:hover, &:focus { 
+    background-image: linear-gradient(90deg, var(--pink), var(--purple) 75%);
+  }
+}
+
+/* Header */
+header {
+  z-index: 20;
+  min-height: 5.25rem; /* 84px */
+  box-shadow: 3px 3px 12px rgba(248, 99, 189, .25);
+  backdrop-filter: blur(40px);
+  .nav-logo {
+    min-height: 5.25rem; /* 84px */
+  }
+}
+
+/* Logo */
+.logo {
+  width: 5rem; /* 80px */
+  height: 5.3125rem; /* 85px */
+  transform: scale(.7059);
+  background: url('../img/logo.png') no-repeat;
+  &:hover {
+    transform: scale(.75);
+    transition: transform var(--transition) ease-in-out;
+  }
+}
+
+/* Navigation */
+nav {
+  a {
+    font-size: 1.25rem !important; /* 20px */
+    &:hover {
+      color: var(--purple) !important;
+      transition: color var(--transition) ease-out;
+    }
+  }
+}
+
+a {
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+/* Common styles */
+.important-el {
+  background: var(--deep-purple) !important;
+  box-shadow: .1875rem .1875rem .75rem rgba(248, 99, 189, .25); /* 3px 3px 12px */
+}
+
+/* Headings */
+h1, h2, h3 {
+  &.sm-heading {
+    padding: .2rem 0; /* 3.2px 0 */
+  }
+}
+
+h2, h3, h4, p {
+  &.sm-heading {
+    font-size: calc(1.275rem + .9vw); /* 2.4px + .9% of viewport width */
+  }
+}
+
+/* Hero Section */
+.hero-section {
+  .hero-and-socials {
+    margin-top: 3.35rem; /* 53.6px */
+  }
+}
+
+/* Common styles for the rest of the sections */
+#about, #projects, #contact {
+  padding-top: 5.3125rem; /* 85px */
+  padding-bottom: 5.3125rem; /* 85px */
+}
+
+/* Glow icons with tooltip */
+.glow-icons {
+  .glow-icon {
+    margin: .1875rem; /* 3px */
+  }
+  /* Pulsing animation keyframes */
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  /* Glow-box-parent: Base glow and pulse */
+  .glow-box-parent {
+    width: 2.5rem; /* 40px */
+    height: 2.5rem; /* 40px */
+    animation: pulse 2s infinite;
+    transition: all var(--transition) ease;
+    /* Outer glow: Multi-layer box-shadow for neon effect */
+    box-shadow: 
+      0 0 .3125rem var(--dark-overlay), /* 0 0 5px */
+      0 0 .625rem var(--dark-overlay), /* 0 0 10px */
+      0 0 .9375rem var(--dark-overlay), /* 0 0 15px */
+      inset 0 0 .3125rem rgba(255, 255, 255, .5); /* 0 0 5px */
+    /* Inner glow via filter */
+    filter: drop-shadow(0 0 5px var(--dark-overlay));
+    /* Show tooltip on click for mobile and on hover for desktop */
+    &:hover {
+      cursor: pointer;
+      /* Stronger inner glow */
+      filter: drop-shadow(0 0 .625rem var(--text-color)); /* 0 0 10px */
+      /* 3D tilt for depth */
+      transform: perspective(62.5rem) rotateX(10deg) rotateY(10deg) scale(1.1); /* 1000px */
+      /* Pause pulse on hover for focus */
+      animation-play-state: paused;
+      .tooltip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    }
+    /* Enhance focus for accessibility */
+    &:focus {
+      box-shadow: 
+        0 0 62.5rem #f3f3f3, /* 0 0 10px */
+    }
+    /* Tooltip styles */
+    .tooltip {
+      top: -3.125rem; /* -50px */
+      background: #1a1a1a;
+      color: var(--text-color);
+      padding: .3125rem .625rem; /* 5px 10px */
+      font-size: .875rem; /* 14px */
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity var(--transition) ease, transform var(--transition) ease, visibility var(--transition) ease;
+      box-shadow: 0 .125rem .3125rem rgba(0, 0, 0, .3); /* 0 2px 5px */
+      z-index: 10;
+      /* Downward arrow for tooltip */
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -.4375rem; /* -7px */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: .5rem .5rem 0 .5rem; /* 8px 8px 0 8px */
+        border-color: #1a1a1a transparent transparent transparent;
+      }
+    }
+  }
+} 
+
+/* Projects Section */
+.card {
+  color: var(--text-color);
+  &:hover {
+    box-shadow: 0 .4375rem 3.125rem .625rem #ffffff44; /* 0 7px 50px 10px */
+    transform: scale(1.015);
+  }
+  .card-img-top {
+    height: calc(100% - 6.8rem);
+    object-fit: cover;
+  }
+}
+
+footer {
+  height: 3.75rem; /* 60px */
+  @media (max-width: 767px) {
+    p {
+      &.lead {
+        font-size: 1.125rem !important; /* 18px */
+      }
+    }
+  }
+}
